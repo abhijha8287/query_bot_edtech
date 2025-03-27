@@ -18,7 +18,7 @@ from langchain_community.chat_models import ChatOpenAI
 load_dotenv()
 
 
-llm = ChatOpenAI(model_name="gpt-4", api_key=st.secrets['api_key], temperature=0)
+llm = ChatOpenAI(model_name="gpt-4", api_key=st.secrets['api_key'], temperature=0)
 
 
 
