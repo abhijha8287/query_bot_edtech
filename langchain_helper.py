@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 import os
-
+import streamlit as st
 from langchain.prompts import PromptTemplate
 from langchain.chains import RetrievalQA
 
@@ -18,7 +18,7 @@ from langchain_community.chat_models import ChatOpenAI
 load_dotenv()
 
 
-llm = ChatOpenAI(model_name="gpt-4", api_key=os.getenv("OPENAI_API_KEY"), temperature=0)
+llm = ChatOpenAI(model_name="gpt-4", api_key=st.secrets['api_key], temperature=0)
 
 
 
