@@ -1,35 +1,46 @@
-# 🎓 EdTech Query Chatbot
+# EdTech FAQ Bot
 
-An intelligent chatbot designed specifically for **EdTech platforms** to answer user queries related to courses, schedules, instructors, enrollments, and more — all in real-time.
+A Streamlit Q&A bot that answers questions about an online course platform from its FAQ file.
 
-> 🤖 **Purpose:** To assist users, students, and admins by providing instant answers to questions related only to the platform — making navigation and support seamless.
+## Why this exists
+Practice with retrieval-augmented generation (RAG) on a real FAQ dataset (Codebasics), so answers come from the platform's own text.
 
----
+## What it does
+- Loads `codebasics_faqs.csv` and embeds each entry with BGE embeddings
+- Saves the vectors to a local FAISS index ("Create Knowledgebase" button)
+- Finds the closest FAQ entries for a question and answers with GPT-4 through a `RetrievalQA` chain
+- `project1.ipynb` shows the same steps one by one
 
-## 🚀 Features
+## Project structure
+```
+query_bot_edtech/
+├── faiss_index/         Saved FAISS vector index
+├── codebasics_faqs.csv  FAQ questions and answers
+├── langchain_helper.py  Index building and QA chain
+├── main.py              Streamlit app
+├── project1.ipynb       Step-by-step notebook
+├── requirements.txt     Python dependencies
+└── projectenv/          Local virtual environment
+```
 
-- 🔍 **Platform-specific knowledge base**: Trained/fine-tuned to answer questions *only* related to your EdTech platform.
-- 💬 **Natural language interaction**: Ask questions in plain English like “What are the prerequisites for the Data Science course?”
-- 📄 **FAQs and document ingestion**: Uses structured documents like course catalogs, student guides, or website pages.
-- 🛠️ **LLM-powered backend**: Integrated with language models (OpenAI / HuggingFace / Llama / custom LLM).
-- 🔄 **Context retention**: Maintains short conversation history to improve query understanding.
-- 🧠 **Fine-tuned or RAG support**: Can be enhanced via Retrieval-Augmented Generation (RAG) with vector databases.
-- 🌐 **Web-based interface**: Simple front-end using Streamlit or Flask for real-time access.
+## Getting started
+Requirements: Python 3.10+, an OpenAI API key.
+```bash
+git clone https://github.com/abhijha8287/query_bot_edtech.git
+cd query_bot_edtech
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt sentence-transformers
+mkdir -p .streamlit && echo 'api_key = "sk-..."' > .streamlit/secrets.toml
+streamlit run main.py
+```
 
----
+## Configuration
+| Variable | Purpose |
+|:--|:--|
+| `api_key` in `.streamlit/secrets.toml` | OpenAI API key |
 
-## 🧠 Use Cases
+## Tech stack
+Python, LangChain, OpenAI GPT-4, HuggingFace BGE embeddings, FAISS, Streamlit
 
-- 🧑‍🎓 Students: "I never did programming in my life can I take ML bootcamp?"
-
-
----
-
-## 🛠️ Tech Stack
-
-- **Frontend**: Streamlit 
-- **Backend**: Python, LangChain , OpenAI API, HuggingFace Transformers
-- **Embedding/Vector DB**: FAISS 
-- **Data Sources**:  FAQs
-
----
+## Notes
+`projectenv/` is a committed virtual environment and is not needed; create your own as shown above.
